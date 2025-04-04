@@ -1,5 +1,9 @@
 import subprocess
 import time
+import logging
+
+# Configure logging
+logging.basicConfig(filename='bt_list.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Color definitions for spring tones
 RESET_COLOR = "\033[0m"
@@ -41,12 +45,13 @@ def get_installed_packages():
         print(LIGHT_LAVENDER + "\nThe petals settle... the list is complete." + RESET_COLOR)
 
     except subprocess.CalledProcessError as e:
+        logging.error(f"Error while retrieving packages: {e}")
         print(f"{LIGHT_PEACH}Error while retrieving packages: {e}{RESET_COLOR}")
     except Exception as e:
+        logging.error(f"Unexpected error: {e}")
         print(f"{LIGHT_PEACH}Unexpected error: {e}{RESET_COLOR}")
 
 if __name__ == "__main__":
     print(FRESH_GREEN + "\nEntering the spring bloom of Python packages." + RESET_COLOR)
     spring_sleep(2)
     get_installed_packages()
-
